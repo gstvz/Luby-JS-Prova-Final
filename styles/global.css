@@ -1,7 +1,21 @@
 * {
     box-sizing: border-box;
+	color: #707070;
     font-family: Helvetica;
 	margin: 0;
 	padding: 0;
 	outline: 0;	
-};
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style-type: none;
+}
+
+.flex-row-align-center {
+	display: flex;
+	align-items: center;
+}
