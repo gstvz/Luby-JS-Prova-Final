@@ -1,0 +1,53 @@
+.header__container {
+    border-bottom: 2px solid #ebebeb;
+    justify-content: center;
+    width: 100%;
+}
+
+.header__nav {
+    justify-content: center;
+    width: 80%;
+}
+
+.header__menu {
+    flex: 1;
+}
+
+.header__logo {
+    font-size: 4.4rem;    
+    margin-right: 7.4rem;
+    position: relative;
+    text-align: center;
+}
+
+.header__logo--border {
+    background-color: #B5C401;
+    border-radius: 20px;
+    position: absolute;
+    height: 0.7rem;
+    top: 95%;
+    left: -6.5%;
+    width: 10rem;
+}
+
+.header__item {    
+    width: fit-content;
+}
+
+.header__item:first-child {
+    flex: 1;
+}
+
+.header__item:nth-child(2){
+    margin-right: 4rem;
+}
+
+.header__link {
+    font-size: 2rem;
+}
+
+.header__link > img  {    
+    height: 2rem;
+    margin-left: 1rem;
+    width: 2rem;
+}
