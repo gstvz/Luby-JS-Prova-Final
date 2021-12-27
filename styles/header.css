@@ -1,11 +1,13 @@
 .header__container {
     border-bottom: 2px solid #ebebeb;
+    height: 7.55rem;
     justify-content: center;
     width: 100%;
 }
 
 .header__nav {
     justify-content: center;
+    padding-top: 1rem;
     width: 80%;
 }
 
@@ -14,7 +16,7 @@
 }
 
 .header__logo {
-    font-size: 4.4rem;    
+    font-size: 4.4rem;
     margin-right: 7.4rem;
     position: relative;
     text-align: center;
@@ -25,7 +27,7 @@
     border-radius: 20px;
     position: absolute;
     height: 0.7rem;
-    top: 95%;
+    top: 108%;
     left: -6.5%;
     width: 10rem;
 }
