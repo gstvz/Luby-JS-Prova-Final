@@ -1,0 +1,8 @@
+.footer__container {
+    border-top: 2px solid #ebebeb;  
+    width: 100%;
+}
+.footer__container > p {
+    font-size: 1.5rem;
+    font-weight: normal;
+}
