@@ -12,6 +12,7 @@
         (function init() {
             getGames();
             addGamesButtonsListeners();
+            addActionsButtonsListeners();
         })();
 
         function addGamesButtonsListeners() {
@@ -19,6 +20,12 @@
                 btn.addEventListener('click', handleSelectedGame);
             });
         };
+
+        function addActionsButtonsListeners() {
+            $.get('.btn__complete');
+            $.get('.btn__clear').addEventListener('click', handleClearGame);
+            $.get('.btn__add');
+        }
 
         function getGames() {
             ajax.open('GET', '../games.json', true);
@@ -101,6 +108,14 @@
                 return true;
             };
             return;
+        };
+
+        function handleClearGame() {
+            selectedNumbers = [];
+            const selectedNumbersButtons = $.getAll('.btn__numbers--selected');
+            selectedNumbersButtons.forEach(function(btn) {
+                btn.style.backgroundColor = "#ADC0C4";
+            });
         };
     })();    
 })(window.DOM);
