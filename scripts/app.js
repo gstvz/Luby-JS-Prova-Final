@@ -6,7 +6,7 @@
         const $numbersList = $.get('[data-js="numbers-list"]');
         const ajax = new XMLHttpRequest();
 
-        let games = null;
+        let games = null;        
 
         (function init() {
             getGames();
@@ -37,13 +37,13 @@
         };
 
         function handleSelectedGame(e) {
-            $gameName.textContent = `FOR ${e.target.value.toUpperCase()}`;
-            $gameDescription.textContent = games[0].description;
-            handleGameRange();
+            $gameName.textContent = `FOR ${e.target.textContent.toUpperCase()}`;            
+            $gameDescription.textContent = games[e.target.dataset.id].description;
+            handleGameRange(e.target.dataset.id);
         };
 
-        function handleGameRange() {
-            const gameRange = games[0].range;
+        function handleGameRange(id) {
+            const gameRange = games[id].range;
             for (let counter = 1; counter <= gameRange; counter++) {
                 const $numberLi = document.createElement('li');
                 const $numberButton = document.createElement('button');
