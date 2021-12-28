@@ -2,16 +2,13 @@
     display: grid;
     column-gap: 4.1rem;
     grid-template-columns: 1fr 31.7rem;
-    max-width: 118rem;
+    margin: 0 auto;
+    max-width: 104rem;
     width: 100%;
 }
 
 .section__container, .aside {
     margin-top: 7.35rem;
-}
-
-.section__container {
-    margin-left: 14.5rem;    
 }
 
 .section__title {
@@ -62,7 +59,9 @@
 
 .section__description {
     font-weight: normal;
+    margin-right: 0.5rem;
     margin-top: 0.5rem;
+    max-width: 65rem;
 }
 
 .section__numbers {
@@ -158,11 +157,21 @@
     margin-left: 1.2rem;
 }
 
+.aside__numbers {
+    font-size: 1.5rem;
+}
+
+.aside__game {
+    color: #7F3992;
+    font-size: 1.6rem;
+}
+
 .aside__price {
+    color: #707070;
     margin-left: 1.4rem;
 }
 
-.aside__total, .aside__price {
+.aside__price, .aside__total, .aside__total-value {
     font-style: normal;
     font-weight: normal;
 }
