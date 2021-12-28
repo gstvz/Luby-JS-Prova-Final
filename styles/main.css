@@ -139,13 +139,14 @@
     margin-bottom: 3.2rem;
 }
 
-.aside__item > img {
+.aside__delete {
+    background: none;
+    border: none;
     height: 2.4rem;    
     width: 1.96rem;
 }
 
-.aside__info {
-    border-left: 4px solid #7F3992;
+.aside__info {    
     border-radius: 4px 0 0 4px;
 }
 
