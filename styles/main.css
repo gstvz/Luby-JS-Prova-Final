@@ -1,0 +1,193 @@
+.main__container {
+    display: grid;
+    column-gap: 4.1rem;
+    grid-template-columns: 1fr 31.7rem;
+    margin: 0 auto;
+    max-width: 104rem;
+    width: 100%;
+}
+
+.section__container, .aside {
+    margin-top: 7.35rem;
+}
+
+.section__title {
+    font-size: 2.4rem;
+    font-weight: normal;
+    margin-bottom: 3.3rem;
+}
+
+.section__games {
+    margin-bottom: 2.8rem;
+}
+
+.section__games > p {
+    font-size: 1.7rem;
+    margin-bottom: 2rem;
+}
+
+.section__game {
+    margin-right: 2.5rem;
+}
+
+.btn__games {
+    background-color: #FFFFFF;
+    border-radius: 100px;
+    font-size: 1.4rem;
+    padding: 0.9rem 2rem;
+}
+
+.btn__lotofacil {
+    border: 2px solid #7F3992;
+    color: #7F3992;
+}
+
+.btn__megasena {
+    border: 2px solid #01AC66;
+    color: #01AC66;
+}
+
+.btn__lotomania {
+    border: 2px solid #F79C31;
+    color: #F79C31;
+}
+
+.section__bet {
+    font-size: 1.7rem;
+    margin-bottom: 4.4rem;
+}
+
+.section__description {
+    font-weight: normal;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+    max-width: 65rem;
+}
+
+.section__numbers {
+    flex-wrap: wrap;    
+}
+
+.section__number {
+    margin: 2.7rem 1.2rem 2rem 0;
+}
+
+.btn__numbers {
+    background-color: #ADC0C4;
+    border: none;
+    border-radius: 50%;
+    color: #FFFFFF;
+    font-size: 2rem;
+    height: 6.5rem;
+    width: 6.3rem;
+}
+
+.section__buttons {
+    justify-content: center;
+}
+
+.btns__container {
+    width: 98%;
+}
+
+.btns__comp-clear {
+    flex: 1;
+}
+
+.btn__complete, .btn__clear, .btn__add {
+    border-radius: 10px;
+    font-style: normal;
+    width: fit-content;
+}
+
+.btn__complete, .btn__clear {
+    background-color: #F7F7F7;
+    border: 1px solid #27C383;    
+    color: #27C383;    
+    margin-right: 2.5rem;
+    padding: 1.5rem 2rem;
+}
+
+.btn__add {    
+    background-color: #27C383;
+    border: none;
+    color: #FFFFFF;    
+    padding: 1.1rem 2.5rem; 
+}
+
+.btn__add > img {
+    background-color: #27C383;
+    height: 2.5rem;
+    margin-right: 2.8rem;
+    width: 2.5rem;
+}
+
+.aside {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    height: fit-content;
+    width: 31.7rem;
+}
+
+.aside__cart {
+    margin: 3.2rem 1.6rem 4.7rem 1.9rem;
+}
+
+.aside__cart > p {
+    font-size: 2.4rem;
+    margin: 3.2rem 0;    
+}
+
+.aside__item {
+    margin-bottom: 3.2rem;
+}
+
+.aside__item > img {
+    height: 2.4rem;    
+    width: 1.96rem;
+}
+
+.aside__info {
+    border-left: 4px solid #7F3992;
+    border-radius: 4px 0 0 4px;
+}
+
+.aside__info, .aside__numbers, .aside__game {
+    margin-bottom: 0.6rem;
+    margin-left: 1.2rem;
+}
+
+.aside__numbers {
+    font-size: 1.5rem;
+}
+
+.aside__game {
+    color: #7F3992;
+    font-size: 1.6rem;
+}
+
+.aside__price {
+    color: #707070;
+    margin-left: 1.4rem;
+}
+
+.aside__price, .aside__total, .aside__total-value {
+    font-style: normal;
+    font-weight: normal;
+}
+
+.btn__save {
+    border: none;
+    color: #27C383;
+    font-size: 3.5rem;
+    font-style: italic;
+    height: 9.6rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn__save > img {    
+    height: 2rem;
+    margin-left: 1rem;
+    width: 2.4rem;
+}
