@@ -1,13 +1,14 @@
 .header__container {
     border-bottom: 2px solid #ebebeb;
     height: 7.55rem;
-    justify-content: center;
+    justify-content: center;    
     width: 100%;
 }
 
 .header__nav {
     justify-content: center;
     padding-top: 1rem;
+    max-width: 104rem;
     width: 80%;
 }
 
