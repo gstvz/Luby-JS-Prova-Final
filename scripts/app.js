@@ -1,6 +1,7 @@
 (function($) {
     const app = (function() {
         const $gameName = $.get('[data-js="game-name"]');
+        const $gamesButtons = $.getAll('[data-js="game-button"]');
         const $gameDescription = $.get('[data-js="game-description"]');
         const $numbersList = $.get('[data-js="numbers-list"]');
         const ajax = new XMLHttpRequest();
@@ -9,13 +10,20 @@
 
         (function init() {
             getGames();
+            addEventListeners();
         })();
+
+        function addEventListeners() {
+            $gamesButtons.forEach(function(btn) {
+                btn.addEventListener('click', handleSelectedGame);
+            });
+        };
 
         function getGames() {
             ajax.open('GET', '../games.json', true);
             ajax.send();            
             ajax.onreadystatechange = handleGamesRequest;
-        }
+        };
 
         function isReady() {
             return ajax.readyState == 4 && ajax.status == 200;
@@ -25,12 +33,11 @@
             if(!isReady()) return;
 
             const data = JSON.parse(ajax.responseText);
-            games = data.types;
-            handleSelectedGame();
+            games = data.types;            
         };
 
-        function handleSelectedGame() {
-            $gameName.textContent = `FOR ${games[0].type.toUpperCase()}`;
+        function handleSelectedGame(e) {
+            $gameName.textContent = `FOR ${e.target.value.toUpperCase()}`;
             $gameDescription.textContent = games[0].description;
             handleGameRange();
         };
