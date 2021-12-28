@@ -6,7 +6,7 @@
         const $numbersList = $.get('[data-js="numbers-list"]');
         const ajax = new XMLHttpRequest();
 
-        let games = null;        
+        let games = null;
 
         (function init() {
             getGames();
@@ -44,12 +44,13 @@
 
         function handleGameRange(id) {
             const gameRange = games[id].range;
+            $numbersList.textContent = "";
             for (let counter = 1; counter <= gameRange; counter++) {
                 const $numberLi = document.createElement('li');
                 const $numberButton = document.createElement('button');
 
-                $numberLi.classList.add("section__number");                
-                $numberButton.classList.add("btn__numbers");
+                $numberLi.classList.add("section__number");   
+                $numberButton.classList.add("btn__numbers");                
 
                 counter < 10 ? $numberButton.textContent = `0${counter}` : $numberButton.textContent = counter;  
 
