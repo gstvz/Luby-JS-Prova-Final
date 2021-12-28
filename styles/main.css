@@ -1,14 +1,11 @@
 .main__container {
     display: grid;
     column-gap: 4.1rem;
-    grid-template-columns: 1fr 31.7rem;
+    grid-template-columns: 1fr 31.7rem;    
     margin: 0 auto;
     max-width: 104rem;
+    padding: 7.35rem 0;
     width: 100%;
-}
-
-.section__container, .aside {
-    margin-top: 7.35rem;
 }
 
 .section__title {

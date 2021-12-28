@@ -1,5 +1,7 @@
 .footer__container {
-    border-top: 2px solid #ebebeb;  
+    align-items: center;
+    border-top: 2px solid #ebebeb;
+    height: 7.55rem;
     width: 100%;
 }
 .footer__container > p {
