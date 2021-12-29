@@ -7,35 +7,31 @@
         let cartItems = [];
 
         (function init() {
-            getGames();
-            addGamesButtonsListeners();
-            addActionsButtonsListeners();
+            getGamesInfo();
+            addButtonsListeners();
         })();
 
-        function addGamesButtonsListeners() {
+        function addButtonsListeners() {
             $.getAll('[data-js="game-button"]').forEach(function(btn) {
                 btn.addEventListener('click', handleSelectedGame);
             });
-        };
-
-        function addActionsButtonsListeners() {
             $.get('.btn__complete').addEventListener('click', handleCompleteGame);
             $.get('.btn__clear').addEventListener('click', handleClearGame);
             $.get('.btn__add').addEventListener('click', handleAddToCart);
-        }
-
-        function getGames() {
-            ajax.open('GET', '../games.json', true);
-            ajax.send();            
-            ajax.onreadystatechange = handleGamesRequest;
         };
 
-        function isReady() {
+        function getGamesInfo() {
+            ajax.open('GET', '../games.json', true);
+            ajax.send();            
+            ajax.onreadystatechange = handleGamesInfo;
+        };
+
+        function isGamesInfoReady() {
             return ajax.readyState == 4 && ajax.status == 200;
         };
 
-        function handleGamesRequest() {
-            if(!isReady()) return;
+        function handleGamesInfo() {
+            if(!isGamesInfoReady()) return;
 
             const data = JSON.parse(ajax.responseText);
             games = data.types;            
@@ -254,7 +250,7 @@
             const total = cartItems.reduce(function(acc, currentValue) {
                 return acc + currentValue.price;
             }, 0);
-            
+
             $cartTotalValue.textContent = formatValue(total);
         };
 
