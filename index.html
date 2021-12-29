@@ -36,19 +36,19 @@
     <main class="main__container">
         <section class="section__container">
             <p class="section__title">
-                <strong>NEW BET</strong> <span>FOR MEGA-SENA</span>
+                <strong>NEW BET </strong><span data-js="game-name"></span>
             </p>
             <section class="section__games">
                 <p>Choose a game</p>
                 <ul class="flex-row-align-center">
                     <li class="section__game">
-                        <button class="btn__games btn__lotofacil" type="button">Lotofácil</button>
+                        <button class="btn__games btn__lotofacil" type="button" data-js="game-button" data-id="0">Lotofácil</button>
                     </li>
                     <li class="section__game">
-                        <button class="btn__games btn__megasena" type="button">Mega-sena</button>
+                        <button class="btn__games btn__megasena" type="button" data-js="game-button" data-id="1">Mega-sena</button>
                     </li>
                     <li class="section__game">
-                        <button class="btn__games btn__lotomania" type="button">Lotomania</button>
+                        <button class="btn__games btn__lotomania" type="button" data-js="game-button" data-id="2">Lotomania</button>
                     </li>
                 </ul>
             </section>
@@ -56,63 +56,8 @@
                 <p>
                     <strong>Fill your bet</strong>
                 </p>
-                <p class="section__description">Mark as many numbers as you want up to a maximum of 50. Win by hitting 15, 16, 17, 18, 19, 20 or none of the 20 numbers drawn.</p>
-                <ul class="section__numbers flex-row-align-center">
-                    <li class="section__number">
-                        <button class="btn__numbers">01</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">02</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">03</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">01</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">02</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">03</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">01</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">02</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">03</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">01</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">02</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">03</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">01</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">02</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">03</button>
-                    </li>    
-                    <li class="section__number">
-                        <button class="btn__numbers">01</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">02</button>
-                    </li>
-                    <li class="section__number">
-                        <button class="btn__numbers">03</button>
-                    </li>                 
-                </ul>
+                <p class="section__description" data-js="game-description"></p>
+                <ul class="section__numbers flex-row-align-center" data-js="numbers-list"></ul>
             </section>
             <section class="section__buttons flex-row-align-center">
                 <div class="btns__container flex-row-align-center">
@@ -130,23 +75,8 @@
         <aside class="aside">
             <div class="aside__cart">
                 <p><strong>CART</strong></p>
-                <ul class="aside__games">
-                    <li class="aside__item flex-row-align-center">
-                        <img src="./assets/trash-bin.svg" alt="Delete">
-                        <div class="aside__info">
-                            <p class="aside__numbers">01, 02,04,05,06,07,09,15,17,20,21, 22,23,24,25</p>
-                            <p class="aside__game"><strong>Lotofácil</strong><span class="aside__price">R$2,50</span></p>
-                        </div>             
-                    </li>
-                    <li class="aside__item flex-row-align-center">
-                        <img src="./assets/trash-bin.svg" alt="Delete">
-                        <div class="aside__info">
-                            <p class="aside__numbers">01,03,04,05,06</p>
-                            <p class="aside__game"><strong>Mega-Sena</strong><span class="aside__price">R$4,50</span></p>
-                        </div>
-                    </li>
-                </ul>
-                <p><strong>CART</strong> <span class="aside__total">TOTAL:</span> <span class="aside__total-value">R$7,00</span></p>
+                <ul class="aside__games" data-js="cart-list"></ul>
+                <p><strong>CART</strong> <span class="aside__total">TOTAL: </span><span class="aside__total-value"></span></p>
             </div>
             <div class="aside__save">
                 <button class="btn__save flex-row-align-center">
