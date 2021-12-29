@@ -45,7 +45,7 @@
 
             setGameData(e);
             changeGameButtonStyle(e);
-            handleGameRange(gameId);
+            handleGameRange();
         };
 
         function isAGameSelected() {
@@ -68,43 +68,44 @@
             e.target.style.color = '#FFFFFF';
         };
 
-        function handleGameRange(id) {
-            const gameRange = games[id].range;
+        function handleGameRange() {
+            const gameRange = games[gameId].range;
             const $numbersList = $.get('[data-js="numbers-list"]');
 
             $numbersList.textContent = "";
+            makeNumberButton(gameRange, $numbersList);
+            addNumbersButtonsListeners();
+        };
 
-            for (let counter = 1; counter <= gameRange; counter++) {
+        function makeNumberButton(range, $list) {
+            for (let counter = 1; counter <= range; counter++) {
                 const $numberLi = document.createElement('li');
                 const $numberButton = document.createElement('button');
 
                 $numberLi.classList.add("section__number");   
                 $numberButton.classList.add("btn__numbers");
 
-                counter < 10 ? $numberButton.textContent = `0${counter}` : $numberButton.textContent = counter;  
-
-                $numbersList.appendChild($numberLi).appendChild($numberButton);
+                counter < 10 ? $numberButton.textContent = `0${counter}` : $numberButton.textContent = counter;
+                $list.appendChild($numberLi).appendChild($numberButton);
             };
-
-            addNumbersButtonsListeners(id);
         };
 
-        function addNumbersButtonsListeners(id) {
+        function addNumbersButtonsListeners() {
             $.getAll('.btn__numbers').forEach(function(btn) {
                 btn.addEventListener('click', function(e) {
-                    handleNumberSelection(e, id);
+                    handleNumberSelection(e);
                 });
             });
         };
 
-        function handleNumberSelection(e, id) {
-            if(isSelectionFull(id)) {                
+        function handleNumberSelection(e) {
+            if(isSelectionFull(gameId)) {                
                 return;
             };
 
             selectedNumbers.push(e.target.textContent);
             e.target.classList.add('btn__numbers--selected');
-            e.target.style.backgroundColor = games[id].color;
+            e.target.style.backgroundColor = games[gameId].color;
 
             e.target.removeEventListener('click', handleNumberSelection);
             e.target.addEventListener('click', handleNumberDeselection);
@@ -123,8 +124,8 @@
             e.target.addEventListener('click', handleNumberSelection);
         };
 
-        function isSelectionFull(id) {
-            if(selectedNumbers.length === games[id]["max-number"]) {
+        function isSelectionFull() {
+            if(selectedNumbers.length === games[gameId]["max-number"]) {
                 return true;
             };
             return;
