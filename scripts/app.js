@@ -134,6 +134,8 @@
             selectedNumbersButtons.forEach(function(btn) {
                 btn.classList.remove('btn__numbers--selected');
                 btn.style.backgroundColor = "#ADC0C4";
+                btn.removeEventListener('click', handleNumberDeselection);
+                btn.addEventListener('click', handleNumberSelection);
             });
         };
 
