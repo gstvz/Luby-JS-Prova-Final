@@ -156,6 +156,8 @@
                 let index = Math.floor(Math.random() * numbersButtons.length);
                 selectRandomNumbers = [...selectRandomNumbers, numbersButtons[index].textContent];
                 addSelectedClass(numbersButtons, index);
+                numbersButtons[index].removeEventListener('click', handleNumberSelection);
+                numbersButtons[index].addEventListener('click', handleNumberDeselection);
                 numbersButtons.splice(index, 1);
             };
             
