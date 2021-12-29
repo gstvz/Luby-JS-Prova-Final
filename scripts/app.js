@@ -26,7 +26,7 @@
         };
 
         function addActionsButtonsListeners() {
-            $.get('.btn__complete');
+            $.get('.btn__complete').addEventListener('click', handleCompleteGame);
             $.get('.btn__clear').addEventListener('click', handleClearGame);
             $.get('.btn__add').addEventListener('click', handleAddToCart);
         }
@@ -121,6 +121,33 @@
             selectedNumbersButtons.forEach(function(btn) {
                 btn.style.backgroundColor = "#ADC0C4";
             });
+        };
+
+        function handleCompleteGame() {
+            const numbersLeft = games[gameId]["max-number"] - selectedNumbers.length;           
+
+            if(numbersLeft == 0) {
+                return;
+            };
+
+            let numbersButtons = Array.from($.getAll('.btn__numbers'));
+            numbersButtons = numbersButtons.filter(function(btn) {
+                return !(btn.classList.contains('btn__numbers--selected'));
+            });
+            let selectRandomNumbers = [];
+
+            for (let counter = 0; counter < numbersLeft; counter++) {
+                let index = Math.floor(Math.random() * numbersButtons.length);
+                selectRandomNumbers = [...selectRandomNumbers, numbersButtons[index].textContent];
+                addSelectedClass(numbersButtons, index);
+            };
+            
+            selectedNumbers = selectedNumbers.concat(selectRandomNumbers);
+        };
+
+        function addSelectedClass(btns, index) {
+            btns[index].classList.add('btn__numbers--selected');
+            btns[index].style.backgroundColor = games[gameId].color;
         };
 
         function handleAddToCart() {
