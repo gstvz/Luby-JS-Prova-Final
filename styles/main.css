@@ -110,6 +110,12 @@
     padding: 1.5rem 2rem;
 }
 
+.btn__complete:hover, .btn__clear:hover {
+    background-color: #27C383;
+    color: #FFFFFF;
+    transition: 0.5s;
+}
+
 .btn__add {    
     background-color: #27C383;
     border: none;
