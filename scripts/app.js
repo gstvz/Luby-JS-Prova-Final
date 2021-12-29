@@ -132,6 +132,7 @@
             selectedNumbers = [];
             const selectedNumbersButtons = $.getAll('.btn__numbers--selected');
             selectedNumbersButtons.forEach(function(btn) {
+                btn.classList.remove('btn__numbers--selected');
                 btn.style.backgroundColor = "#ADC0C4";
             });
         };
@@ -139,7 +140,7 @@
         function handleCompleteGame() {
             const numbersLeft = games[gameId]["max-number"] - selectedNumbers.length;           
 
-            if(numbersLeft == 0) {
+            if(numbersLeft === 0) {
                 return;
             };
 
@@ -153,6 +154,7 @@
                 let index = Math.floor(Math.random() * numbersButtons.length);
                 selectRandomNumbers = [...selectRandomNumbers, numbersButtons[index].textContent];
                 addSelectedClass(numbersButtons, index);
+                numbersButtons.splice(index, 1);
             };
             
             selectedNumbers = selectedNumbers.concat(selectRandomNumbers);
