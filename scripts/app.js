@@ -38,24 +38,34 @@
         };
 
         function handleSelectedGame(e) {    
+            isAGameSelected();
+
+            selectedNumbers = [];
+            gameId = e.target.dataset.id;
+
+            setGameData(e);
+            changeGameButtonStyle(e);
+            handleGameRange(gameId);
+        };
+
+        function isAGameSelected() {
             if($.get('.btn__games--selected')) {
                 const $selectedGame = $.get('.btn__games--selected');
                 $selectedGame.classList.remove('btn__games--selected');
                 $selectedGame.style.backgroundColor = '#FFFFFF';
                 $selectedGame.style.color = games[gameId].color;
             }
+        };
 
-            selectedNumbers = [];
-            gameId = e.target.dataset.id;
-
+        function setGameData(e) {
             $.get('[data-js="game-name"]').textContent = `FOR ${e.target.textContent.toUpperCase()}`;            
             $.get('[data-js="game-description"]').textContent = games[gameId].description;
+        };
 
+        function changeGameButtonStyle(e) {
             e.target.classList.add('btn__games--selected');
             e.target.style.backgroundColor = games[gameId].color;
             e.target.style.color = '#FFFFFF';
-
-            handleGameRange(gameId);
         };
 
         function handleGameRange(id) {
