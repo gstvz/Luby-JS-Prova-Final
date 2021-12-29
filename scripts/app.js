@@ -8,10 +8,10 @@
 
         (function init() {
             getGamesInfo();
-            addButtonsListeners();
+            setButtonsListeners();
         })();
 
-        function addButtonsListeners() {
+        function setButtonsListeners() {
             $.getAll('[data-js="game-button"]').forEach(function(btn) {
                 btn.addEventListener('click', handleSelectedGame);
             });
@@ -163,25 +163,38 @@
                 return;
             };
 
+            let numbersButtons = getUnselectedNumbers();
+            let selectRandomNumbers = getRandomNumbers(numbersLeft, numbersButtons);
+            
+            selectedNumbers = selectedNumbers.concat(selectRandomNumbers);
+        };
+
+        function getUnselectedNumbers() {
             let numbersButtons = Array.from($.getAll('.btn__numbers'));
+            
             numbersButtons = numbersButtons.filter(function(btn) {
                 return !(btn.classList.contains('btn__numbers--selected'));
             });
+
+            return numbersButtons;
+        };
+
+        function getRandomNumbers(numbersLeft, numbersButtons) {
             let selectRandomNumbers = [];
 
             for (let counter = 0; counter < numbersLeft; counter++) {
                 let index = Math.floor(Math.random() * numbersButtons.length);
                 selectRandomNumbers = [...selectRandomNumbers, numbersButtons[index].textContent];
-                addSelectedClass(numbersButtons, index);
-                numbersButtons[index].removeEventListener('click', handleNumberSelection);
-                numbersButtons[index].addEventListener('click', handleNumberDeselection);
+                
+                setSelectedClass(numbersButtons, index);
+                changeNumberListener(numbersButtons[index], true);
                 numbersButtons.splice(index, 1);
             };
-            
-            selectedNumbers = selectedNumbers.concat(selectRandomNumbers);
+
+            return selectRandomNumbers;
         };
 
-        function addSelectedClass(btns, index) {
+        function setSelectedClass(btns, index) {
             btns[index].classList.add('btn__numbers--selected');
             btns[index].style.backgroundColor = games[gameId].color;
         };
