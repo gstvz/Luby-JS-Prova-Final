@@ -73,8 +73,7 @@
             const $numbersList = $.get('[data-js="numbers-list"]');
 
             $numbersList.textContent = "";
-            makeNumberButton(gameRange, $numbersList);
-            setNumbersButtonsListeners();
+            makeNumberButton(gameRange, $numbersList);            
         };
 
         function makeNumberButton(range, $list) {
@@ -88,6 +87,7 @@
                 counter < 10 ? $numberButton.textContent = `0${counter}` : $numberButton.textContent = counter;
                 $list.appendChild($numberLi).appendChild($numberButton);
             };
+            setNumbersButtonsListeners();
         };
 
         function setNumbersButtonsListeners() {
@@ -103,33 +103,37 @@
                 return;
             };
 
-            selectedNumbers.push(e.target.textContent);
-            e.target.classList.add('btn__numbers--selected');
-            e.target.style.backgroundColor = games[gameId].color;
+            const btn = e.target;
 
-            changeNumberListener(e, true);
+            selectedNumbers.push(btn.textContent);
+            btn.classList.add('btn__numbers--selected');
+            btn.style.backgroundColor = games[gameId].color;
+
+            changeNumberListener(btn, true);
         };
 
         function handleNumberDeselection(e) {
+            const btn = e.target;
+
             selectedNumbers = selectedNumbers.filter(function(number)  {
-                    return number !== e.target.textContent;
+                    return number !== btn.textContent;
                 }
             );
 
-            e.target.classList.remove('btn__numbers--selected');
-            e.target.style.backgroundColor = "#ADC0C4";
-            changeNumberListener(e, false);
+            btn.classList.remove('btn__numbers--selected');
+            btn.style.backgroundColor = "#ADC0C4";
+            changeNumberListener(btn, false);
         };
 
-        function changeNumberListener(e, boolean) {
+        function changeNumberListener(btn, boolean) {
             if(boolean) {
-                e.target.removeEventListener('click', handleNumberSelection);
-                e.target.addEventListener('click', handleNumberDeselection);
+                btn.removeEventListener('click', handleNumberSelection);
+                btn.addEventListener('click', handleNumberDeselection);
                 return;
             };
 
-            e.target.removeEventListener('click', handleNumberDeselection);
-            e.target.addEventListener('click', handleNumberSelection);
+            btn.removeEventListener('click', handleNumberDeselection);
+            btn.addEventListener('click', handleNumberSelection);
         };
 
         function isSelectionFull() {
@@ -141,12 +145,15 @@
         function handleClearGame() {
             selectedNumbers = [];
             const selectedNumbersButtons = $.getAll('.btn__numbers--selected');
-            selectedNumbersButtons.forEach(function(btn) {
-                btn.classList.remove('btn__numbers--selected');
-                btn.style.backgroundColor = "#ADC0C4";
-                btn.removeEventListener('click', handleNumberDeselection);
-                btn.addEventListener('click', handleNumberSelection);
-            });
+
+            selectedNumbersButtons.forEach(changeNumberStyle);
+        };
+
+        function changeNumberStyle(btn) {
+            btn.classList.remove('btn__numbers--selected');
+            btn.style.backgroundColor = "#ADC0C4";
+            btn.removeEventListener('click', handleNumberDeselection);
+            btn.addEventListener('click', handleNumberSelection);
         };
 
         function handleCompleteGame() {
