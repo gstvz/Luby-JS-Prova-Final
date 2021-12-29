@@ -74,7 +74,7 @@
 
             $numbersList.textContent = "";
             makeNumberButton(gameRange, $numbersList);
-            addNumbersButtonsListeners();
+            setNumbersButtonsListeners();
         };
 
         function makeNumberButton(range, $list) {
@@ -90,7 +90,7 @@
             };
         };
 
-        function addNumbersButtonsListeners() {
+        function setNumbersButtonsListeners() {
             $.getAll('.btn__numbers').forEach(function(btn) {
                 btn.addEventListener('click', function(e) {
                     handleNumberSelection(e);
@@ -99,7 +99,7 @@
         };
 
         function handleNumberSelection(e) {
-            if(isSelectionFull(gameId)) {                
+            if(isSelectionFull()) {                
                 return;
             };
 
@@ -107,8 +107,7 @@
             e.target.classList.add('btn__numbers--selected');
             e.target.style.backgroundColor = games[gameId].color;
 
-            e.target.removeEventListener('click', handleNumberSelection);
-            e.target.addEventListener('click', handleNumberDeselection);
+            changeNumberListener(e, true);
         };
 
         function handleNumberDeselection(e) {
@@ -119,6 +118,15 @@
 
             e.target.classList.remove('btn__numbers--selected');
             e.target.style.backgroundColor = "#ADC0C4";
+            changeNumberListener(e, false);
+        };
+
+        function changeNumberListener(e, boolean) {
+            if(boolean) {
+                e.target.removeEventListener('click', handleNumberSelection);
+                e.target.addEventListener('click', handleNumberDeselection);
+                return;
+            };
 
             e.target.removeEventListener('click', handleNumberDeselection);
             e.target.addEventListener('click', handleNumberSelection);
@@ -127,8 +135,7 @@
         function isSelectionFull() {
             if(selectedNumbers.length === games[gameId]["max-number"]) {
                 return true;
-            };
-            return;
+            };            
         };
 
         function handleClearGame() {
