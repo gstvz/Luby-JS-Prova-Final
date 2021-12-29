@@ -1,13 +1,6 @@
 (function($) {
-    const app = (function() {
-        const $gameName = $.get('[data-js="game-name"]');
-        const $gamesButtons = $.getAll('[data-js="game-button"]');
-        const $gameDescription = $.get('[data-js="game-description"]');
-        const $numbersList = $.get('[data-js="numbers-list"]');
-        const $cartList = $.get('[data-js="cart-list"]');
-        const $cartTotalValue = $.get('.aside__total-value');
+    const app = (function() {        
         const ajax = new XMLHttpRequest();
-
         let games = null;
         let gameId = null;
         let selectedNumbers = [];
@@ -20,7 +13,7 @@
         })();
 
         function addGamesButtonsListeners() {
-            $gamesButtons.forEach(function(btn) {
+            $.getAll('[data-js="game-button"]').forEach(function(btn) {
                 btn.addEventListener('click', handleSelectedGame);
             });
         };
@@ -59,8 +52,8 @@
             selectedNumbers = [];
             gameId = e.target.dataset.id;
 
-            $gameName.textContent = `FOR ${e.target.textContent.toUpperCase()}`;            
-            $gameDescription.textContent = games[gameId].description;
+            $.get('[data-js="game-name"]').textContent = `FOR ${e.target.textContent.toUpperCase()}`;            
+            $.get('[data-js="game-description"]').textContent = games[gameId].description;
 
             e.target.classList.add('btn__games--selected');
             e.target.style.backgroundColor = games[gameId].color;
@@ -71,7 +64,10 @@
 
         function handleGameRange(id) {
             const gameRange = games[id].range;
+            const $numbersList = $.get('[data-js="numbers-list"]');
+
             $numbersList.textContent = "";
+
             for (let counter = 1; counter <= gameRange; counter++) {
                 const $numberLi = document.createElement('li');
                 const $numberButton = document.createElement('button');
@@ -183,7 +179,10 @@
         };
 
         function renderCartItems() {
+            const $cartList = $.get('[data-js="cart-list"]');
+
             $cartList.textContent = "";
+
             for (let counter = 0; counter < cartItems.length; counter++) {
                 const $cartLi = document.createElement('li');
                 const $cartDiv = document.createElement('div');
@@ -251,10 +250,12 @@
         };
 
         function calculateCartValue() {
-            const cartTotalValue = cartItems.reduce(function(acc, currentValue) {
+            const $cartTotalValue = $.get('.aside__total-value');
+            const total = cartItems.reduce(function(acc, currentValue) {
                 return acc + currentValue.price;
             }, 0);
-            $cartTotalValue.textContent = formatValue(cartTotalValue);
+            
+            $cartTotalValue.textContent = formatValue(total);
         };
 
         function formatValue(value) {
