@@ -1,142 +1,159 @@
 (function($) {
-    const app = (function() {
-        const $gameName = $.get('[data-js="game-name"]');
-        const $gamesButtons = $.getAll('[data-js="game-button"]');
-        const $gameDescription = $.get('[data-js="game-description"]');
-        const $numbersList = $.get('[data-js="numbers-list"]');
-        const $cartList = $.get('[data-js="cart-list"]');
-        const $cartTotalValue = $.get('.aside__total-value');
+    const app = (function() {        
         const ajax = new XMLHttpRequest();
-
         let games = null;
         let gameId = null;
         let selectedNumbers = [];
         let cartItems = [];
 
         (function init() {
-            getGames();
-            addGamesButtonsListeners();
-            addActionsButtonsListeners();
+            getGamesInfo();
+            setButtonsListeners();
         })();
 
-        function addGamesButtonsListeners() {
-            $gamesButtons.forEach(function(btn) {
+        function setButtonsListeners() {
+            $.getAll('[data-js="game-button"]').forEach(function(btn) {
                 btn.addEventListener('click', handleSelectedGame);
             });
-        };
-
-        function addActionsButtonsListeners() {
             $.get('.btn__complete').addEventListener('click', handleCompleteGame);
             $.get('.btn__clear').addEventListener('click', handleClearGame);
             $.get('.btn__add').addEventListener('click', handleAddToCart);
-        }
-
-        function getGames() {
-            ajax.open('GET', '../games.json', true);
-            ajax.send();            
-            ajax.onreadystatechange = handleGamesRequest;
         };
 
-        function isReady() {
+        function getGamesInfo() {
+            ajax.open('GET', '../games.json', true);
+            ajax.send();            
+            ajax.onreadystatechange = handleGamesInfo;
+        };
+
+        function isGamesInfoReady() {
             return ajax.readyState == 4 && ajax.status == 200;
         };
 
-        function handleGamesRequest() {
-            if(!isReady()) return;
+        function handleGamesInfo() {
+            if(!isGamesInfoReady()) return;
 
             const data = JSON.parse(ajax.responseText);
             games = data.types;            
         };
 
         function handleSelectedGame(e) {    
+            isAGameSelected();
+
+            selectedNumbers = [];
+            gameId = e.target.dataset.id;
+
+            setGameData(e);
+            changeGameButtonStyle(e);
+            handleGameRange();
+        };
+
+        function isAGameSelected() {
             if($.get('.btn__games--selected')) {
                 const $selectedGame = $.get('.btn__games--selected');
                 $selectedGame.classList.remove('btn__games--selected');
                 $selectedGame.style.backgroundColor = '#FFFFFF';
                 $selectedGame.style.color = games[gameId].color;
             }
+        };
 
-            selectedNumbers = [];
-            gameId = e.target.dataset.id;
+        function setGameData(e) {
+            $.get('[data-js="game-name"]').textContent = `FOR ${e.target.textContent.toUpperCase()}`;            
+            $.get('[data-js="game-description"]').textContent = games[gameId].description;
+        };
 
-            $gameName.textContent = `FOR ${e.target.textContent.toUpperCase()}`;            
-            $gameDescription.textContent = games[gameId].description;
-
+        function changeGameButtonStyle(e) {
             e.target.classList.add('btn__games--selected');
             e.target.style.backgroundColor = games[gameId].color;
             e.target.style.color = '#FFFFFF';
-
-            handleGameRange(gameId);
         };
 
-        function handleGameRange(id) {
-            const gameRange = games[id].range;
+        function handleGameRange() {
+            const gameRange = games[gameId].range;
+            const $numbersList = $.get('[data-js="numbers-list"]');
+
             $numbersList.textContent = "";
-            for (let counter = 1; counter <= gameRange; counter++) {
+            makeNumberButton(gameRange, $numbersList);            
+        };
+
+        function makeNumberButton(range, $list) {
+            for (let counter = 1; counter <= range; counter++) {
                 const $numberLi = document.createElement('li');
                 const $numberButton = document.createElement('button');
 
                 $numberLi.classList.add("section__number");   
                 $numberButton.classList.add("btn__numbers");
 
-                counter < 10 ? $numberButton.textContent = `0${counter}` : $numberButton.textContent = counter;  
-
-                $numbersList.appendChild($numberLi).appendChild($numberButton);
+                counter < 10 ? $numberButton.textContent = `0${counter}` : $numberButton.textContent = counter;
+                $list.appendChild($numberLi).appendChild($numberButton);
             };
-
-            addNumbersButtonsListeners(id);
+            setNumbersButtonsListeners();
         };
 
-        function addNumbersButtonsListeners(id) {
+        function setNumbersButtonsListeners() {
             $.getAll('.btn__numbers').forEach(function(btn) {
                 btn.addEventListener('click', function(e) {
-                    handleNumberSelection(e, id);
+                    handleNumberSelection(e);
                 });
             });
         };
 
-        function handleNumberSelection(e, id) {
-            if(isSelectionFull(id)) {                
+        function handleNumberSelection(e) {
+            if(isSelectionFull()) {                
                 return;
             };
 
-            selectedNumbers.push(e.target.textContent);
-            e.target.classList.add('btn__numbers--selected');
-            e.target.style.backgroundColor = games[id].color;
+            const btn = e.target;
 
-            e.target.removeEventListener('click', handleNumberSelection);
-            e.target.addEventListener('click', handleNumberDeselection);
+            selectedNumbers.push(btn.textContent);
+            btn.classList.add('btn__numbers--selected');
+            btn.style.backgroundColor = games[gameId].color;
+
+            changeNumberListener(btn, true);
         };
 
         function handleNumberDeselection(e) {
+            const btn = e.target;
+
             selectedNumbers = selectedNumbers.filter(function(number)  {
-                    return number !== e.target.textContent;
+                    return number !== btn.textContent;
                 }
             );
 
-            e.target.classList.remove('btn__numbers--selected');
-            e.target.style.backgroundColor = "#ADC0C4";
-
-            e.target.removeEventListener('click', handleNumberDeselection);
-            e.target.addEventListener('click', handleNumberSelection);
+            btn.classList.remove('btn__numbers--selected');
+            btn.style.backgroundColor = "#ADC0C4";
+            changeNumberListener(btn, false);
         };
 
-        function isSelectionFull(id) {
-            if(selectedNumbers.length === games[id]["max-number"]) {
-                return true;
+        function changeNumberListener(btn, boolean) {
+            if(boolean) {
+                btn.removeEventListener('click', handleNumberSelection);
+                btn.addEventListener('click', handleNumberDeselection);
+                return;
             };
-            return;
+
+            btn.removeEventListener('click', handleNumberDeselection);
+            btn.addEventListener('click', handleNumberSelection);
+        };
+
+        function isSelectionFull() {
+            if(selectedNumbers.length === games[gameId]["max-number"]) {
+                return true;
+            };            
         };
 
         function handleClearGame() {
             selectedNumbers = [];
             const selectedNumbersButtons = $.getAll('.btn__numbers--selected');
-            selectedNumbersButtons.forEach(function(btn) {
-                btn.classList.remove('btn__numbers--selected');
-                btn.style.backgroundColor = "#ADC0C4";
-                btn.removeEventListener('click', handleNumberDeselection);
-                btn.addEventListener('click', handleNumberSelection);
-            });
+
+            selectedNumbersButtons.forEach(changeNumberStyle);
+        };
+
+        function changeNumberStyle(btn) {
+            btn.classList.remove('btn__numbers--selected');
+            btn.style.backgroundColor = "#ADC0C4";
+            btn.removeEventListener('click', handleNumberDeselection);
+            btn.addEventListener('click', handleNumberSelection);
         };
 
         function handleCompleteGame() {
@@ -146,28 +163,50 @@
                 return;
             };
 
+            let numbersButtons = getUnselectedNumbers();
+            let selectRandomNumbers = getRandomNumbers(numbersLeft, numbersButtons);
+            
+            selectedNumbers = selectedNumbers.concat(selectRandomNumbers);
+        };
+
+        function getUnselectedNumbers() {
             let numbersButtons = Array.from($.getAll('.btn__numbers'));
+            
             numbersButtons = numbersButtons.filter(function(btn) {
                 return !(btn.classList.contains('btn__numbers--selected'));
             });
+
+            return numbersButtons;
+        };
+
+        function getRandomNumbers(numbersLeft, numbersButtons) {
             let selectRandomNumbers = [];
 
             for (let counter = 0; counter < numbersLeft; counter++) {
                 let index = Math.floor(Math.random() * numbersButtons.length);
                 selectRandomNumbers = [...selectRandomNumbers, numbersButtons[index].textContent];
-                addSelectedClass(numbersButtons, index);
+                
+                setSelectedClass(numbersButtons, index);
+                changeNumberListener(numbersButtons[index], true);
                 numbersButtons.splice(index, 1);
             };
-            
-            selectedNumbers = selectedNumbers.concat(selectRandomNumbers);
+
+            return selectRandomNumbers;
         };
 
-        function addSelectedClass(btns, index) {
+        function setSelectedClass(btns, index) {
             btns[index].classList.add('btn__numbers--selected');
             btns[index].style.backgroundColor = games[gameId].color;
         };
 
         function handleAddToCart() {
+            const cartItem = createCartItemObject();
+            cartItems.push(cartItem);
+            renderCartItems();
+            handleClearGame();
+        };
+
+        function createCartItemObject() {
             const cartItem = {
                 id: Math.floor(Math.random() * 100) + 1,
                 numbers: selectedNumbers,
@@ -175,13 +214,20 @@
                 price: games[gameId].price,
                 color: games[gameId].color
             };
-            cartItems.push(cartItem);
-            renderCartItems();
-            handleClearGame();
+
+            return cartItem;
         };
 
         function renderCartItems() {
+            const $cartList = $.get('[data-js="cart-list"]');
+
             $cartList.textContent = "";
+
+            makeCartItem($cartList);
+            calculateCartValue();
+        };
+
+        function makeCartItem($cartList) {
             for (let counter = 0; counter < cartItems.length; counter++) {
                 const $cartLi = document.createElement('li');
                 const $cartDiv = document.createElement('div');
@@ -201,13 +247,11 @@
                 $cartDiv.appendChild($cartNumbers);
                 $cartDiv.appendChild($cartGame);
             };
-
-            calculateCartValue();
         };
 
         function makeNumbersParagraph(counter) {
             const $numbersParagraph = document.createElement('p');
-            $numbersParagraph.textContent = cartItems[counter].numbers;
+            $numbersParagraph.textContent = cartItems[counter].numbers.join(', ');
             return $numbersParagraph;
         };
 
@@ -249,10 +293,12 @@
         };
 
         function calculateCartValue() {
-            const cartTotalValue = cartItems.reduce(function(acc, currentValue) {
+            const $cartTotalValue = $.get('.aside__total-value');
+            const total = cartItems.reduce(function(acc, currentValue) {
                 return acc + currentValue.price;
             }, 0);
-            $cartTotalValue.textContent = formatValue(cartTotalValue);
+
+            $cartTotalValue.textContent = formatValue(total);
         };
 
         function formatValue(value) {
