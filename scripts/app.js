@@ -48,11 +48,24 @@
             games = data.types;            
         };
 
-        function handleSelectedGame(e) {
+        function handleSelectedGame(e) {    
+            if($.get('.btn__games--selected')) {
+                const $selectedGame = $.get('.btn__games--selected');
+                $selectedGame.classList.remove('btn__games--selected');
+                $selectedGame.style.backgroundColor = '#FFFFFF';
+                $selectedGame.style.color = games[gameId].color;
+            }
+
             selectedNumbers = [];
-            $gameName.textContent = `FOR ${e.target.textContent.toUpperCase()}`;            
-            $gameDescription.textContent = games[e.target.dataset.id].description;
             gameId = e.target.dataset.id;
+
+            $gameName.textContent = `FOR ${e.target.textContent.toUpperCase()}`;            
+            $gameDescription.textContent = games[gameId].description;
+
+            e.target.classList.add('btn__games--selected');
+            e.target.style.backgroundColor = games[gameId].color;
+            e.target.style.color = '#FFFFFF';
+
             handleGameRange(gameId);
         };
 
