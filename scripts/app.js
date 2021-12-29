@@ -200,6 +200,13 @@
         };
 
         function handleAddToCart() {
+            const cartItem = createCartItemObject();
+            cartItems.push(cartItem);
+            renderCartItems();
+            handleClearGame();
+        };
+
+        function createCartItemObject() {
             const cartItem = {
                 id: Math.floor(Math.random() * 100) + 1,
                 numbers: selectedNumbers,
@@ -207,9 +214,8 @@
                 price: games[gameId].price,
                 color: games[gameId].color
             };
-            cartItems.push(cartItem);
-            renderCartItems();
-            handleClearGame();
+
+            return cartItem;
         };
 
         function renderCartItems() {
@@ -217,6 +223,11 @@
 
             $cartList.textContent = "";
 
+            makeCartItem($cartList);
+            calculateCartValue();
+        };
+
+        function makeCartItem($cartList) {
             for (let counter = 0; counter < cartItems.length; counter++) {
                 const $cartLi = document.createElement('li');
                 const $cartDiv = document.createElement('div');
@@ -236,13 +247,11 @@
                 $cartDiv.appendChild($cartNumbers);
                 $cartDiv.appendChild($cartGame);
             };
-
-            calculateCartValue();
         };
 
         function makeNumbersParagraph(counter) {
             const $numbersParagraph = document.createElement('p');
-            $numbersParagraph.textContent = cartItems[counter].numbers;
+            $numbersParagraph.textContent = cartItems[counter].numbers.join(', ');
             return $numbersParagraph;
         };
 
