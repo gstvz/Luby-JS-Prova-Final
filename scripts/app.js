@@ -137,9 +137,7 @@
 
         function setNumbersButtonsListeners() {
             $.getAll('.btn__numbers').forEach(function(btn) {
-                btn.addEventListener('click', function(e) {
-                    handleNumberSelection(e);
-                });
+                btn.addEventListener('click', handleNumberSelection);
             });
         };
 
@@ -183,6 +181,7 @@
 
         function isSelectionFull() {
             if(selectedNumbers.length === games[gameId]["max-number"]) {
+                alert('O seu jogo já está completo!');
                 return true;
             };            
         };
@@ -245,11 +244,48 @@
         };
 
         function handleAddToCart() {
+            if(isCartFull()) {
+                return;
+            };
+
             sortSelectedNumbers();
             const cartItem = createCartItemObject();
+
+            if(isGameAlreadyOnCart(cartItem)) {
+                alert('Você já adicionou um jogo com esses números ao carrinho!');
+                return;
+            };            
+
             cartItems.push(cartItem);
             renderCartItems();
             handleClearGame();
+        };
+
+        function isCartFull() {
+            const maxNumbers = games[gameId]["max-number"];
+            const numbersLeft = maxNumbers - selectedNumbers.length;
+            
+            if(numbersLeft === maxNumbers) {
+                alert('Você não selecionou nenhum número para o seu jogo!');
+                return true;
+            } else if(numbersLeft > 0 && numbersLeft < maxNumbers) {
+                alert(`Você ainda pode selecionar ${numbersLeft} número(s) para o seu jogo!`);
+                return true;
+            };            
+        };
+
+        function isGameAlreadyOnCart(cartItem) {
+            const newItemType = cartItem.type;
+            const newItemNumbers = cartItem.numbers;
+            let boolean = false;
+
+
+            for (const game of cartItems) {
+                if(game.type === newItemType) {
+                    boolean = (JSON.stringify(newItemNumbers) === JSON.stringify(game.numbers));
+                };
+            };
+            return boolean;
         };
 
         function sortSelectedNumbers() {
