@@ -9,6 +9,7 @@
         (function init() {
             getGamesInfo();
             setButtonsListeners();
+            calculateCartValue();
         })();
 
         function setButtonsListeners() {
@@ -386,8 +387,29 @@
                 return acc + currentValue.price;
             }, 0);
 
+            if(total === 0) {
+                makeCartIsEmpty($cartTotalValue, total);
+            };
+
             $cartTotalValue.textContent = formatValue(total);
         };
+
+        function makeCartIsEmpty($cartTotalValue, total) {
+            const $cartLi = document.createElement('li');
+            const $cartEmpty = document.createElement('img');
+            const $cartP = document.createElement('p');
+
+            $cartLi.classList.add('flex-row-align-center');
+            $cartEmpty.src = '../assets/empty-shopping-cart.svg';
+            $cartEmpty.classList.add('aside__empty-cart');
+            $cartP.classList.add('aside__empty-message');
+            $cartP.textContent = "O carrinho está vazio :(";
+
+            $cartLi.appendChild($cartEmpty);
+            $cartLi.appendChild($cartP);
+            $.get('[data-js="cart-list"]').appendChild($cartLi);
+            $cartTotalValue.textContent = formatValue(total);
+        }
 
         function formatValue(value) {
             return value.toLocaleString('pt-br', {

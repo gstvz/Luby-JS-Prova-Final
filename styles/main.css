@@ -150,6 +150,17 @@
     margin-bottom: 3.2rem;
 }
 
+.aside__empty-cart {
+    height: 4rem; 
+    margin-right: 1rem;   
+    width: 4rem;
+}
+
+.aside__empty-message {
+    color: #FF0000;
+    font-size: 1.7rem;
+}
+
 .aside__delete {
     background: none;
     border: none;
