@@ -200,10 +200,17 @@
         };
 
         function handleAddToCart() {
+            sortSelectedNumbers();
             const cartItem = createCartItemObject();
             cartItems.push(cartItem);
             renderCartItems();
             handleClearGame();
+        };
+
+        function sortSelectedNumbers() {
+            selectedNumbers.sort(function(x, y) {
+                return x - y;
+            });
         };
 
         function createCartItemObject() {
