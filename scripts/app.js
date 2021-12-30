@@ -12,9 +12,6 @@
         })();
 
         function setButtonsListeners() {
-            $.getAll('[data-js="game-button"]').forEach(function(btn) {
-                btn.addEventListener('click', handleSelectedGame);
-            });
             $.get('.btn__complete').addEventListener('click', handleCompleteGame);
             $.get('.btn__clear').addEventListener('click', handleClearGame);
             $.get('.btn__add').addEventListener('click', handleAddToCart);
@@ -34,7 +31,55 @@
             if(!isGamesInfoReady()) return;
 
             const data = JSON.parse(ajax.responseText);
-            games = data.types;            
+            games = data.types;
+            makeGameButton();      
+        };
+
+        function makeGameButton() {
+            const $sectionGamesButtons = $.get('.section__games-buttons');
+
+            for (let counter = 0; counter < games.length; counter++) {
+                const $gameLi = document.createElement('li');
+                const $gameButton = document.createElement('button');
+
+                setGameButtonStyle(games[counter].type, $gameLi, $gameButton);
+                setGameButtonAttributes($gameButton, counter);
+
+                $gameButton.addEventListener('click', handleSelectedGame);
+                $gameLi.appendChild($gameButton);
+                $sectionGamesButtons.appendChild($gameLi);                
+            };
+
+            setFirstGame();
+        };
+
+        function setFirstGame() {
+            const $btn = $.get('[data-js="game-button"]');
+            gameId = 0;
+
+            setGameData();
+            changeGameButtonStyle($btn);
+            handleGameRange();
+        };
+
+        function setGameButtonAttributes($gameButton, counter) {
+            $gameButton.setAttribute('data-js', 'game-button');
+            $gameButton.setAttribute('data-id', counter);
+            $gameButton.textContent = games[counter].type;
+        };
+
+        function setGameButtonStyle(type, li, btn) {
+            li.classList.add('section__game');
+
+            if(type === 'Lotofácil') {                
+                btn.classList.add('btn__games', 'btn__lotofacil');
+            }
+            if(type === 'Mega-Sena') {
+                btn.classList.add('btn__games', 'btn__megasena');
+            }
+            if(type === 'Quina') {
+                btn.classList.add('btn__games', 'btn__lotomania');
+            };            
         };
 
         function handleSelectedGame(e) {    
@@ -43,8 +88,8 @@
             selectedNumbers = [];
             gameId = e.target.dataset.id;
 
-            setGameData(e);
-            changeGameButtonStyle(e);
+            setGameData();
+            changeGameButtonStyle(e.target);
             handleGameRange();
         };
 
@@ -57,15 +102,15 @@
             }
         };
 
-        function setGameData(e) {
-            $.get('[data-js="game-name"]').textContent = `FOR ${e.target.textContent.toUpperCase()}`;            
+        function setGameData() {
+            $.get('[data-js="game-name"]').textContent = `FOR ${games[gameId].type.toUpperCase()}`;            
             $.get('[data-js="game-description"]').textContent = games[gameId].description;
         };
 
-        function changeGameButtonStyle(e) {
-            e.target.classList.add('btn__games--selected');
-            e.target.style.backgroundColor = games[gameId].color;
-            e.target.style.color = '#FFFFFF';
+        function changeGameButtonStyle(btn) {
+            btn.classList.add('btn__games--selected');
+            btn.style.backgroundColor = games[gameId].color;
+            btn.style.color = '#FFFFFF';
         };
 
         function handleGameRange() {
