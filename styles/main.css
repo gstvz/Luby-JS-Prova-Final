@@ -1,22 +1,22 @@
 .main__container {
     display: grid;
-    column-gap: 4.1rem;
-    grid-template-columns: 1fr 31.7rem;    
-    min-height: calc(100vh - 15rem);
+    column-gap: 4rem;
+    grid-template-columns: 1fr 34rem;
+    min-height: calc(100vh - 14rem);
     margin: 0 auto;
-    max-width: 104rem;
-    padding: 7.35rem 0;
-    width: 100%;
+    max-width: 120rem;
+    padding: 2rem 0;
+    width: 75%;
 }
 
 .section__title {
     font-size: 2.4rem;
     font-weight: normal;
-    margin-bottom: 3.3rem;
+    margin-bottom: 2rem;
 }
 
 .section__games {
-    margin-bottom: 2.8rem;
+    margin-bottom: 2rem;
 }
 
 .section__games > p {
@@ -25,7 +25,7 @@
 }
 
 .section__game {
-    margin-right: 2.5rem;
+    margin-right: 3rem;
 }
 
 .btn__games {
@@ -54,24 +54,23 @@
 
 .section__bet {
     font-size: 1.7rem;
-    margin-bottom: 4.4rem;
+    margin-bottom: 3rem;
 }
 
 .section__description {
     font-weight: normal;
-    margin-right: 0.5rem;
-    margin-top: 0.5rem;
-    max-width: 65rem;
+    margin-top: 1rem;
+    max-width: 74rem;
+    word-break: break-all;
 }
 
 .section__numbers {
-    flex-wrap: wrap;
-    
+    flex-wrap: wrap;    
 }
 
 .section__number {
-    margin-top: 2.7rem;
-    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-right: 1.5rem;    
 }
 
 .btn__numbers {
@@ -80,16 +79,13 @@
     border-radius: 50%;
     color: #FFFFFF;
     font-size: 2rem;
-    height: 6.5rem;
-    width: 6.3rem;
-}
-
-.section__buttons {
-    justify-content: center;
+    height: 6rem;
+    width: 6rem;
 }
 
 .btns__container {
-    width: 98%;
+    max-width: 70rem;
+    width: 100%;
 }
 
 .btns__comp-clear {
@@ -99,7 +95,6 @@
 .btn__complete, .btn__clear, .btn__add {
     border-radius: 10px;
     font-style: normal;
-    width: fit-content;
 }
 
 .btn__complete, .btn__clear {
@@ -125,29 +120,63 @@
 
 .btn__add > img {
     background-color: #27C383;
-    height: 2.5rem;
+    height: 2rem;
     margin-right: 2.8rem;
-    width: 2.5rem;
+    width: 2rem;
 }
 
 .aside {
     background-color: #FFFFFF;
     border-radius: 10px;
-    height: fit-content;
-    width: 31.7rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    max-height: 50rem;
+    width: 34rem;
 }
 
-.aside__cart {
-    margin: 3.2rem 1.6rem 4.7rem 1.9rem;
+.aside__cart {    
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    max-height: 40rem;
+    padding: 2rem 1.5rem 0 1.5rem;    
 }
 
 .aside__cart > p {
     font-size: 2.4rem;
-    margin: 3.2rem 0;    
+    margin: 2rem 0;    
+}
+
+.aside__games {    
+    overflow-y: auto;
+    width: 100%;
+}
+
+.aside__games--flex {
+    flex: 1;
+}
+
+.aside__games::-webkit-scrollbar {
+    width: 0.4rem;
+}
+
+.aside__games::-webkit-scrollbar-thumb {
+    border: 5px solid;
+    border-radius: 10rem;
+}
+
+.aside__games::-webkit-scrollbar-track {
+    position: absolute;
+    right: -3rem;
+    top: -50rem;
+    background: transparent;
 }
 
 .aside__item {
-    margin-bottom: 3.2rem;
+    margin-bottom: 2rem;
 }
 
 .aside__empty-cart {
@@ -170,8 +199,7 @@
 
 .aside__info {    
     border-radius: 4px 0 0 4px;
-    width: 90%;
-    word-break: break-all;
+    width: 90%;    
 }
 
 .aside__info, .aside__numbers, .aside__game {
@@ -181,6 +209,7 @@
 
 .aside__numbers {
     font-size: 1.5rem;
+    width: 25rem;
 }
 
 .aside__game {

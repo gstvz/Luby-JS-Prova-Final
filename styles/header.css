@@ -1,15 +1,14 @@
 .header__container {
     border-bottom: 2px solid #ebebeb;
-    height: 7.55rem;
+    height: 7rem;
     justify-content: center;    
-    width: 100%;
+    width: 100vw;
 }
 
 .header__nav {
     justify-content: center;
-    padding-top: 1rem;
-    max-width: 104rem;
-    width: 80%;
+    max-width: 120rem;
+    width: 75%;
 }
 
 .header__menu {
@@ -18,9 +17,8 @@
 
 .header__logo {
     font-size: 4.4rem;
-    margin-right: 7.4rem;
+    margin-right: 4rem;
     position: relative;
-    text-align: center;
 }
 
 .header__logo--border {
@@ -28,13 +26,9 @@
     border-radius: 20px;
     position: absolute;
     height: 0.7rem;
-    top: 108%;
+    top: 112%;
     left: -6.5%;
     width: 10rem;
-}
-
-.header__item {    
-    width: fit-content;
 }
 
 .header__item:first-child {

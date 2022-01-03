@@ -310,6 +310,7 @@
         function renderCartItems() {
             const $cartList = $.get('[data-js="cart-list"]');
 
+            $.get('.aside__games').classList.add('aside__games--flex');
             $cartList.textContent = "";
 
             makeCartItem($cartList);
@@ -400,10 +401,12 @@
             const $cartP = document.createElement('p');
 
             $cartLi.classList.add('flex-row-align-center');
+            $cartLi.style.justifyContent = 'center';
             $cartEmpty.src = '../assets/empty-shopping-cart.svg';
             $cartEmpty.classList.add('aside__empty-cart');
             $cartP.classList.add('aside__empty-message');
             $cartP.textContent = "O carrinho está vazio :(";
+            $.get('.aside__games').classList.remove('aside__games--flex');
 
             $cartLi.appendChild($cartEmpty);
             $cartLi.appendChild($cartP);
