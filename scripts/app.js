@@ -43,7 +43,7 @@
                 const $gameLi = document.createElement('li');
                 const $gameButton = document.createElement('button');
 
-                setGameButtonStyle(games[counter].type, $gameLi, $gameButton);
+                setGameButtonStyle(games[counter], $gameLi, $gameButton);
                 setGameButtonAttributes($gameButton, counter);
 
                 $gameButton.addEventListener('click', handleSelectedGame);
@@ -69,18 +69,12 @@
             $gameButton.textContent = games[counter].type;
         };
 
-        function setGameButtonStyle(type, li, btn) {
+        function setGameButtonStyle(game, li, btn) {
             li.classList.add('section__game');
+            btn.classList.add('btn__games');
 
-            if(type === 'Lotofácil') {                
-                btn.classList.add('btn__games', 'btn__lotofacil');
-            }
-            if(type === 'Mega-Sena') {
-                btn.classList.add('btn__games', 'btn__megasena');
-            }
-            if(type === 'Quina') {
-                btn.classList.add('btn__games', 'btn__lotomania');
-            };            
+            btn.style.color = game.color;
+            btn.style.borderColor = game.color;
         };
 
         function handleSelectedGame(e) {    
