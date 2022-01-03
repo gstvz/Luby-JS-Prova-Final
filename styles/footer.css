@@ -1,8 +1,7 @@
 .footer__container {
     align-items: center;
     border-top: 2px solid #ebebeb;
-    height: 7.55rem;
-    width: 100%;
+    height: 7rem;
 }
 .footer__container > p {
     font-size: 1.5rem;
