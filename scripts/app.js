@@ -291,15 +291,15 @@
 
         function createCartItemObject() {
             const cartItem = {
-                id: Math.floor(Math.random() * 100) + 1,
+                id: new Date().getTime(),
                 numbers: selectedNumbers,
                 type: games[gameId].type,
                 price: games[gameId].price,
                 color: games[gameId].color
             };
-
+            console.log(cartItem.id);
             return cartItem;
-        };
+        };        
 
         function renderCartItems() {
             const $cartList = $.get('[data-js="cart-list"]');
