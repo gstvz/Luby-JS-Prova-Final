@@ -296,8 +296,7 @@
                 type: games[gameId].type,
                 price: games[gameId].price,
                 color: games[gameId].color
-            };
-            console.log(cartItem.id);
+            };            
             return cartItem;
         };        
 
